@@ -8,9 +8,12 @@ complete control over how logs can be automatically managed and need not require
   # apt update
   # apt install logrotate
   # apt install apache2
+  # apt install mysql-server
+  # apt install squid
+  # cd /etc/logrotate.d
 
 ==== view logrotate status ====
-
+  
   # service logrotate start
   # service logrotate status
   
@@ -26,19 +29,21 @@ complete control over how logs can be automatically managed and need not require
 
   # nano /etc/logrotate.d/apache2.conf
   # /var/log/apache2/* {
+    
     weekly
     rotate 3
-    size 10M
     compress
     delaycompress
+    notifempty
 }
 
-  # logrotate -d /etc/logrotate.d/apache2.conf
+  # logrotate -v /etc/logrotate.d/apache2.conf
   
 ==== Setting /etc/logrotate.d/squid.conf ====
 
   # nano /etc/logrotate.d/squid.conf
   # /var/log/squid/access.log {
+    
     monthly
     create 0644 root root
     rotate 5
@@ -49,7 +54,29 @@ complete control over how logs can be automatically managed and need not require
     mail email@gmail.com
 }
 
-  # logrotate -d /etc/logrotate.d/squid.conf
+  # logrotate -v /etc/logrotate.d/squid.conf
+  
+==== Setting /etc/logrotate.d/mysql-server.conf ====
+
+  # nano /etc/logrotate.d/mysql-server.conf
+  # /var/log/mysql/* {
+
+        compress
+        dateext
+        maxsize 300M
+        copytruncate
+        maxage 365
+        dateformat -%Y%m%d%s
+        daily
+        rotate 30
+        notifempty   
+}
+
+  # logrotate -v /etc/logrotate.d/mysql-server.conf
+  
+==== Status /var/lib/logrotate/status ====
+
+  # cat /var/lib/logrotate/status
   
 ==================================================================================================================================================================
 
