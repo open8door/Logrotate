@@ -1,0 +1,56 @@
+Logrotate is a utility/tool that manages activity logs by means of automatic rotation, deletion and compression of log files on the system. It is an excellent tool 
+for managing your logs, thus saving disk space. By having a simple but powerful configuration file, using different parameters and simple logrotation. This provides 
+complete control over how logs can be automatically managed and need not require manual intervention.
+
+==== Instalasi Logrotate ====
+
+  # sudo su
+  # apt update
+  # apt install logrotate
+  # apt install apache2
+
+==== view logrotate status ====
+
+  # service logrotate start
+  # service logrotate status
+  
+==== Setting /etc/logrotate.conf ====
+  
+  # nano /etc/logrotate.conf
+
+==== Setting /etc/logrotate.d/dpkg ====
+
+  # nano /etc/logrotate.d/dpkg
+
+==== Setting /etc/logrotate.d/apache2.conf ====
+
+  # nano /etc/logrotate.d/apache2.conf
+  # /var/log/apache2/* {
+    weekly
+    rotate 3
+    size 10M
+    compress
+    delaycompress
+}
+
+  # logrotate -d /etc/logrotate.d/apache2.conf
+  
+==== Setting /etc/logrotate.d/squid.conf ====
+
+  # nano /etc/logrotate.d/squid.conf
+  # /var/log/squid/access.log {
+    monthly
+    create 0644 root root
+    rotate 5
+    size=1M
+    dateext
+    dateformat -%d%m%Y
+    notifempty
+    mail email@gmail.com
+}
+
+  # logrotate -d /etc/logrotate.d/squid.conf
+  
+==================================================================================================================================================================
+
+THANK YOU VERY MUCH :)
